@@ -244,7 +244,8 @@ LOCAL_PATH         := .
 LOCAL_CPP_FEATURES += rtti exceptions
 LOCAL_SRC_FILES    := $(wildcard ../src/*.cpp)     \
                       $(wildcard ../src/*/*.cpp)   \
-                      $(wildcard ../src/*/*/*.cpp)
+                      $(wildcard ../src/*/*/*.cpp) \
+                      obj/stk_constants.cpp
 LOCAL_LDLIBS       := -llog -landroid -lGLESv1_CM -lGLESv3 -lOpenSLES -ldl -lm
 LOCAL_CFLAGS       := -I../lib/angelscript/include      \
                       -I../lib/bullet/src               \

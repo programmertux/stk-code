@@ -171,7 +171,7 @@ bool Addon::testIncluded(const std::string &min_ver, const std::string &max_ver)
     if (min_ver.length() == 0 || max_ver.length() == 0)
         return false;
 
-    int current_version = StringUtils::versionToInt(STK_VERSION);
+    int current_version = StringUtils::versionToInt(getSTKVersion());
     int min_version = StringUtils::versionToInt(min_ver);
     int max_version = StringUtils::versionToInt(max_ver);
 

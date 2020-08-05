@@ -463,7 +463,7 @@ bool NewsManager::conditionFulfilled(const std::string &cond)
         if(cond[0]=="stkversion")
         {
             int news_version = StringUtils::versionToInt(cond[2]);
-            int stk_version  = StringUtils::versionToInt(STK_VERSION);
+            int stk_version  = StringUtils::versionToInt(getSTKVersion());
             if(cond[1]=="=")
             {
                 if(stk_version!=news_version) return false;

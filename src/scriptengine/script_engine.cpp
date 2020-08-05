@@ -110,7 +110,7 @@ namespace Scripting
         // libmcpp ignores the first argument (like real main which is the exe)
         std::string cmd1 = "mcpp";
         std::string int_version =
-            StringUtils::toString(StringUtils::versionToInt(STK_VERSION));
+            StringUtils::toString(StringUtils::versionToInt(getSTKVersion()));
         // Preprocessing (atm add stk version)
         std::string cmd2  = "-DSTK_VERSION=";
         cmd2 += int_version;

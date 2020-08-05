@@ -1,0 +1,9 @@
+const char* getSTKVersion()
+{
+    return "@PROJECT_VERSION@";
+}
+
+const char* getSTKInstalledDataDir()
+{
+    return "@STK_INSTALL_DATA_DIR_GENERATED@";
+}

@@ -197,7 +197,7 @@ namespace Scripting
         /* Return the current STK version in string */
         std::string getSTKVersion()
         {
-            return STK_VERSION;
+            return ::getSTKVersion();
         }
         /** @}*/
         /** @}*/

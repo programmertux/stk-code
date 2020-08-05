@@ -53,6 +53,7 @@ extern const bool IS_LITTLE_ENDIAN;
 
 #define DEFAULT_GROUP_NAME "standard"
 
-extern const char STK_VERSION[];
-
+// Defined in stk_constants.cpp.in in top directory
+const char* getSTKVersion();
+const char* getSTKInstalledDataDir();
 #endif

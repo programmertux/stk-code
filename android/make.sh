@@ -236,17 +236,6 @@ if [ -z "$BUILD_TOOLS_VER" ] || [ ! -d "$SDK_PATH/build-tools/$BUILD_TOOLS_VER" 
 fi
 
 # Set project version and code
-if [ -f "$DIRNAME/obj/project_version" ]; then
-    PROJECT_VERSION_PREV=$(cat "$DIRNAME/obj/project_version") 
-    
-    if [ -z "$PROJECT_VERSION" ]; then
-        export PROJECT_VERSION="$PROJECT_VERSION_PREV"
-    elif [ "$PROJECT_VERSION" != "$PROJECT_VERSION_PREV" ]; then
-        echo "Different project version has been set. Forcing recompilation..."
-        touch -c "$DIRNAME/Android.mk"
-    fi
-fi
-
 if [ -z "$PROJECT_VERSION" ]; then
     if [ $IS_DEBUG_BUILD -ne 0 ]; then
         export PROJECT_VERSION="git"
@@ -288,6 +277,8 @@ if [ ! -f "$DIRNAME/obj/make_standalone_toolchain.stamp" ]; then
 fi
 
 echo "$PROJECT_VERSION" > "$DIRNAME/obj/project_version"
+echo "const char* getSTKVersion() { return \"$PROJECT_VERSION\"; }\
+ const char* getSTKInstalledDataDir() { return \"\"; }" > "$DIRNAME/obj/stk_constants.cpp"
 
 # Zlib
 if [ ! -f "$DIRNAME/obj/zlib.stamp" ]; then

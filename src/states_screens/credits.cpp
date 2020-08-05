@@ -94,7 +94,7 @@ bool CreditsScreen::getLineAsWide(std::ifstream& file, core::stringw* out)
     std::getline(file, line);
 
     // Replace "STKVERSION" with the actual version number
-    line = StringUtils::findAndReplace(line, "$STKVERSION$", STK_VERSION);
+    line = StringUtils::findAndReplace(line, "$STKVERSION$", getSTKVersion());
 
     *out = StringUtils::utf8ToWide(line);
     return file.good();

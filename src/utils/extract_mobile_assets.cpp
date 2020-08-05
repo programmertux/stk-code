@@ -33,7 +33,7 @@ bool ExtractMobileAssets::hasFullAssets()
     const std::string& dir = file_manager->getSTKAssetsDownloadDir();
     if (dir.empty())
         return false;
-    return file_manager->fileExists(dir + "stk-assets." + STK_VERSION);
+    return file_manager->fileExists(dir + "stk-assets." + getSTKVersion());
 }   // hasFullAssets
 
 // ----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ bool ExtractMobileAssets::extract(const std::string& zip_file,
     file_manager->checkAndCreateDirectory(dst);
     if (extract_zip(zip_file, dst, true/*recursive*/))
     {
-        std::string extract_ok = dst + "stk-assets." + STK_VERSION;
+        std::string extract_ok = dst + "stk-assets." + getSTKVersion();
         FILE* fp = fopen(extract_ok.c_str(), "wb");
         if (!fp)
         {
@@ -86,7 +86,7 @@ void ExtractMobileAssets::uninstall()
     // Remove the version file in stk-assets folder first, so if it crashes /
     // restarted by mobile it will auto discard downloaded assets
     file_manager->removeFile(file_manager->getSTKAssetsDownloadDir() +
-        "stk-assets." + STK_VERSION);
+        "stk-assets." + getSTKVersion());
     file_manager->removeDirectory(file_manager->getSTKAssetsDownloadDir());
     reinit();
 }   // uninstall

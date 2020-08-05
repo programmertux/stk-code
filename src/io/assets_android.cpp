@@ -50,7 +50,7 @@ void AssetsAndroid::init()
         return;
 
     bool needs_extract_data = false;
-    const std::string version = std::string("supertuxkart.") + STK_VERSION;
+    const std::string version = std::string("supertuxkart.") + getSTKVersion();
 
     // Add some paths to check
     std::vector<std::string> paths;

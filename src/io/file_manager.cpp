@@ -28,6 +28,7 @@
 #include "karts/kart_properties_manager.hpp"
 #include "tracks/track_manager.hpp"
 #include "utils/command_line.hpp"
+#include "utils/constants.hpp"
 #include "utils/extract_mobile_assets.hpp"
 #include "utils/file_utils.hpp"
 #include "utils/log.hpp"
@@ -163,7 +164,7 @@ FileManager::FileManager()
     // This is esp. useful for Visual Studio, since it's not necessary
     // to define the working directory when debugging, it works automatically.
     std::string root_dir;
-    const std::string version = std::string("supertuxkart.") + STK_VERSION;
+    const std::string version = std::string("supertuxkart.") + getSTKVersion();
     if (fileExists(CommandLine::getExecName()))
     {
         exe_path = StringUtils::getPath(CommandLine::getExecName());
@@ -194,11 +195,11 @@ FileManager::FileManager()
     }
     else
     {
-#ifdef SUPERTUXKART_DATADIR
-        root_dir = SUPERTUXKART_DATADIR"/data/";
-#else
-        root_dir = "/usr/local/share/games/supertuxkart/";
-#endif
+        std::string data_dir = getSTKInstalledDataDir();
+        if (!data_dir.empty())
+            root_dir = data_dir + "/data/";
+        else
+            root_dir = "/usr/local/share/games/supertuxkart/";
     }
 
     if (!m_file_system->existFile((root_dir + version).c_str()))

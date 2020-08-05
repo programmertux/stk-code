@@ -10,8 +10,6 @@ if (MINGW AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -gcodeview")
 endif()
 
-add_definitions( -DSUPERTUXKART_VERSION="${PROJECT_VERSION}" )
-
 if(NOT (CMAKE_MAJOR_VERSION VERSION_LESS 3))
   cmake_policy(SET CMP0043 OLD)
 endif()
@@ -495,6 +493,14 @@ if(WIN32)
     configure_file("${STK_SOURCE_DIR}/../tools/windows_installer/icon_rc.template" "${PROJECT_BINARY_DIR}/tmp/icon.rc")
 endif()
 
+if(NOT APPLE)
+    # Set data dir (absolute or relative to CMAKE_INSTALL_PREFIX)
+    if(NOT CMAKE_INSTALL_PREFIX STREQUAL "")
+        get_filename_component(STK_INSTALL_PREFIX_ABSOLUTE ${CMAKE_INSTALL_PREFIX} ABSOLUTE)
+        set(STK_INSTALL_DATA_DIR_GENERATED "${STK_INSTALL_PREFIX_ABSOLUTE}/${STK_INSTALL_DATA_DIR}")
+    endif()
+endif()
+
 # Provides list of source and header files (STK_SOURCES and STK_HEADERS)
 include(sources.cmake)
 
@@ -502,6 +508,9 @@ include(sources.cmake)
 include(cmake/SourceGroupFunctions.cmake)
 source_group_hierarchy(STK_SOURCES STK_HEADERS)
 
+# Define version and data dir
+configure_file(stk_constants.cpp.in stk_constants.cpp)
+set(STK_SOURCES "${CMAKE_CURRENT_BINARY_DIR}/stk_constants.cpp" ${STK_SOURCES})
 
 if(APPLE AND NOT IOS)
     # icon files to copy in the bundle
@@ -534,18 +543,6 @@ else()
     if (NOT WIN32)
         find_library(PTHREAD_LIBRARY NAMES pthread ${PTHREAD_NAMES} PATHS ${PROJECT_SOURCE_DIR}/${DEPENDENCIES}/lib)
         mark_as_advanced(PTHREAD_LIBRARY)
-    endif()
-
-    # Set data dir (absolute or relative to CMAKE_INSTALL_PREFIX)
-    if(NOT STK_INSTALL_DATA_DIR_ABSOLUTE)
-        get_filename_component(STK_INSTALL_DATA_DIR_ABSOLUTE ${STK_INSTALL_DATA_DIR} ABSOLUTE)
-        if(${STK_INSTALL_DATA_DIR_ABSOLUTE} STREQUAL ${STK_INSTALL_DATA_DIR})
-            add_definitions(-DSUPERTUXKART_DATADIR=\"${STK_INSTALL_DATA_DIR_ABSOLUTE}\")
-        else()
-            add_definitions(-DSUPERTUXKART_DATADIR=\"${CMAKE_INSTALL_PREFIX}/${STK_INSTALL_DATA_DIR}\")
-        endif()
-    else()
-        add_definitions(-DSUPERTUXKART_DATADIR=\"${STK_INSTALL_DATA_DIR_ABSOLUTE}\")
     endif()
 
     # Build the final executable

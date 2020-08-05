@@ -695,7 +695,7 @@ int handleCmdLineOutputModifier()
     if(CommandLine::has("--version") || CommandLine::has("-v"))
     {
         Log::info("main", "==============================");
-        Log::info("main", "SuperTuxKart, %s.", STK_VERSION ) ;
+        Log::info("main", "SuperTuxKart, %s.", getSTKVersion() ) ;
         Log::info("main", "==============================");
         cleanUserConfig();
         exit(0);

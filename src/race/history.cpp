@@ -152,7 +152,7 @@ void History::Save()
 
     World *world   = World::getWorld();
     const int num_karts = world->getNumKarts();
-    fprintf(fd, "STK-version:      %s\n",   STK_VERSION);
+    fprintf(fd, "STK-version:      %s\n",   getSTKVersion());
     fprintf(fd, "History-version:  %d\n",   1);
     fprintf(fd, "numkarts:         %d\n",   num_karts);
     fprintf(fd, "numplayers:       %d\n", RaceManager::get()->getNumPlayers());
@@ -218,9 +218,9 @@ void History::Load()
     if (sscanf(s,"STK-version: %1023s",s1)!=1)
         Log::fatal("History", "No Version information found in history "
                               "file (bogus history file).");
-    if (strcmp(s1,STK_VERSION))
+    if (strcmp(s1,getSTKVersion()))
         Log::warn("History", "History is version '%s', STK version is '%s'.",
-                  s1, STK_VERSION);
+                  s1, getSTKVersion());
 
     if (fgets(s, 1023, fd) == NULL)
         Log::fatal("History", "Could not read history.dat.");

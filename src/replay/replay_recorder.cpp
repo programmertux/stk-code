@@ -398,7 +398,7 @@ void ReplayRecorder::save()
     MessageQueue::add(MessageQueue::MT_GENERIC, msg);
 
     fprintf(fd, "version: %d\n", getCurrentReplayVersion());
-    fprintf(fd, "stk_version: %s\n", STK_VERSION);
+    fprintf(fd, "stk_version: %s\n", getSTKVersion());
 
     unsigned int player_count = 0;
     for (unsigned int real_karts = 0; real_karts < num_karts; real_karts++)

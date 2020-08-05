@@ -215,7 +215,7 @@ void GhostReplaySelection::loadList()
                 (RaceManager::Difficulty)rd.m_difficulty)
                 continue;
 
-            core::stringw current_version = STK_VERSION;
+            core::stringw current_version = getSTKVersion();
             if (m_same_version && current_version != rd.m_stk_version)
                 continue;
 
@@ -322,7 +322,7 @@ void GhostReplaySelection::loadList()
             (RaceManager::Difficulty)rd.m_difficulty)
             continue;
 
-        core::stringw current_version = STK_VERSION;
+        core::stringw current_version = getSTKVersion();
         if (m_same_version && current_version != rd.m_stk_version)
             continue;
 
